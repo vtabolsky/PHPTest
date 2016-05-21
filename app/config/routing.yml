@@ -1,0 +1,21 @@
+# app/config/routing.yml
+
+index:
+    path:      /
+    defaults:  { _controller: AppBundle:Product:index }
+
+modify:
+    path:      /modify/{id}
+    defaults:  { _controller: AppBundle:Product:modify }
+    
+create:
+    path:      /create
+    defaults:  { _controller: AppBundle:Product:create }
+
+update:
+    path:      /update/{id}
+    defaults:  { _controller: AppBundle:Product:update }
+
+delete:
+    path:      /delete/{id}
+    defaults:  { _controller: AppBundle:Product:delete }

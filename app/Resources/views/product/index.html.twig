@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="list">
+		
+		<h1>Product manager</h1>
+		
+		{% for flash_message in app.session.flashBag.get('notice') %}
+			<div class="flash-msg notice">
+				{{ flash_message }}
+			</div>
+		{% endfor %}
+		
+		<div class="spacerv">
+			{{ form_start(form) }}
+			
+			{{ form_widget(form) }}
+			
+			<div class="pull-left">
+				<input type="submit" value="Search" class="btn"/>
+			</div>
+			<div class="pull-left">
+				<a class="btn" href="/">Reset</a>
+			</div>
+			{{ form_end(form) }}
+		</div>
+
+		<table>
+			<tr>
+				<th>Product</th>
+				<th>Image</th>
+				<th>Price</th>
+				<th>Created on </th>
+				<th>Actions</th>
+			</tr>
+			 {% for prod in products %}
+			 <tr class="underlinedrow">
+				<td><h3>{{prod.name}}</h3>
+					{{prod.description|nl2br}}
+
+					<div class="tags">tags: {{prod.tags}} </div>
+				</td>
+				<td>
+					{% if prod.image %}
+						<img src="uploads/{{prod.id}}/{{prod.image}}"  width="150px"/>
+					{% endif %}
+				</td>
+				<td>{{prod.price|number_format(2, '.', ',')}}</td>
+				<td>{{prod.createdOn|date("d/m/Y")}}</td>
+				<td align="center">
+					<a href="/modify/{{prod.id}}"><img src="{{ asset('images/icon_edit.png') }}"/></a>
+					<a href="/delete/{{prod.id}}" onclick="return confirm('Are you sure you want to delete this product: {{prod.name}}?')">
+						<img src="{{ asset('images/icon_delete.png') }}"/>
+					</a>
+				</td>
+			 </tr>
+			 {% endfor %}
+		</table>
+		<a href="/create" class="btn btn-default pull-right">Create new product</a>
+        </div>
+    </div>
+{% endblock %}
